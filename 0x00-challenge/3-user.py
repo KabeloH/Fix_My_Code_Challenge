@@ -3,7 +3,7 @@
  User Model
 """
 import hashlib
-import uuid
+from uuid import uuid4
 
 
 class User():
@@ -20,7 +20,7 @@ class User():
         Initialize a new user:
         - assigned an unique `id`
         """
-        self.id = str(uuid.uuid4())
+        self.id = str(uuid4())
 
     @property
     def password(self):
@@ -57,7 +57,7 @@ class User():
         """
         if pwd is None or type(pwd) is not str:
             return False
-        if self.__password is None:
+        elif self.__password is None:
             return False
         elif self.__password == pwd:
             return True
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     if user_2.password is not None:
         print("User.password should be None if setter to an integer")
 
-    if not user_1.is_valid_password(u_pwd):
+    if user_1.is_valid_password(u_pwd):
         print("is_valid_password should return True if it's the right \
 password")
 
