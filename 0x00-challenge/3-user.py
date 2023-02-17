@@ -27,7 +27,10 @@ class User():
         """
         Password getter
         """
-        return self.__password
+        if isinstance(self.__password, str):
+            return self.__password
+        else:
+            return None
 
     @password.setter
     def password(self, pwd):
