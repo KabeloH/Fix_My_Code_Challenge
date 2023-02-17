@@ -1,9 +1,9 @@
-#!/usr/bin/python3.8
+#!/usr/bin/python3
 """
  User Model
 """
 import hashlib
-from uuid import uuid4
+import uuid
 
 
 class User():
@@ -20,17 +20,14 @@ class User():
         Initialize a new user:
         - assigned an unique `id`
         """
-        self.id = str(uuid4())
+        self.id = str(uuid.uuid4())
 
     @property
     def password(self):
         """
         Password getter
         """
-        if isinstance(self.__password, str):
-            return self.__password
-        else:
-            return None
+        return self.__password
 
     @password.setter
     def password(self, pwd):
@@ -51,16 +48,13 @@ class User():
         - `False` if `pwd` is `None`
         - `False` if `pwd` is not a string
         - `False` if `__password` is `None`
-        - `True` if `__password` is `the right password`
-        - `False` if `__password` is `not the right password`
         - Compare `__password` and the MD5 value of `pwd`
         """
         if pwd is None or type(pwd) is not str:
             return False
-        elif self.__password is None:
+        if self.__password is None:
             return False
-        else:
-            return hashlib.md5(pwd.encode()).hexdigest().upper() == self.__password
+        return hashlib.md5(pwd.encode()).hexdigest().lower() == self.__password
 
 
 if __name__ == '__main__':
@@ -90,7 +84,7 @@ if __name__ == '__main__':
     if user_2.password is not None:
         print("User.password should be None if setter to an integer")
 
-    if user_1.is_valid_password(u_pwd):
+    if not user_1.is_valid_password(u_pwd):
         print("is_valid_password should return True if it's the right \
 password")
 
